@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
 
 function Current() {
     const [city, setCity] = useState("")
@@ -10,10 +11,7 @@ function Current() {
     let loading = null
 
     const key = 'bb8b7a1351ef4ccb95b13932222202'
-    const linkAPI = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`
-    //const prueba = `http://api.weatherapi.com/v1/forecast.json?key=bb8b7a1351ef4ccb95b13932222202&q=07112&days=7`
-
-    //TODO: Navbar con 2 cosas: la primera muestra la info del dia actual y la segunda muestra la info del dia actual mas 2 dias más abarcando mas datos
+    const linkAPI = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=7`
 
     const weatherCity = (event) => {
         event.preventDefault()
@@ -60,40 +58,39 @@ function Current() {
             </div>
         } else {
             loading = <>
-                <div className='font-bold text-xl mb-2'>Temperatura actual: <span className={styles.semibold}>{current.temp_c}</span></div>
-                <img src={condition.icon} alt='No hay imagen' className='w-52 mx-auto'></img>
-                <p className={styles.bold}>Fecha y hora: <span className={styles.semibold}>{location.localtime}</span></p>
-                <p className={styles.bold}>Condicion: <span className={styles.semibold}>{condition.text}</span></p>
-                <p className={styles.bold}>Ciudad: <span className={styles.semibold}>{location.name}</span></p>
-                <p className={styles.bold}>Estado: <span className={styles.semibold}>{location.region}</span></p>
-                <p className={styles.bold}>Pais: <span className={styles.semibold}>{location.country}</span></p>
-                <p className={styles.bold}>Humedad: <span className={styles.semibold}>{current.humidity}</span></p>
+                <p className='text-gray-700 font-bold text-2xl'>Clima en {location.name}</p>
+                <span className='font-semibold text-2xl text-gray-700'>{current.temp_c}°C</span>
+                <div className='flex justify-start items-center'>
+                    <img src={condition.icon} alt='No hay imagen' className='px-5'></img>
+                    <span className='text-gray-700 font-semibold'>{condition.text}</span>
+                </div>
+                <p className={styles.bold}>Humedad: <span className={styles.semibold}>{current.humidity}%</span></p>
+                <p className={styles.bold}>Viento: <span className={styles.semibold}>{current.wind_kph} km/h</span></p>
             </>
         }
     }
 
 
     return (
-        <div className='py-5'>
+        <div className='py-5 px-5'>
             <div className='flex justify-center'>
-                <div className='bg-white shadow-md rounded px-8 pt-5 pb-8 mb-4 m-auto'>
-                    <label className='block text-gray-700 text-sm font-bold'>Ciudad</label>
+                <div className='bg-white shadow-md rounded-md px-8 pt-5 pb-8 mb-4 m-auto'>
                     <form className='flex items-center border-b border-teal-500 py-2'>
                         <input
-                            placeholder='Introduce la ciudad'
+                            placeholder='Buscar ciudad'
                             type='text'
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                             className='appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1  leading-tight focus:outline-none font-semibold'
                         ></input>
-                        <div className=''>
-                            <button className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded font-bold' onClick={weatherCity}>Buscar</button>
+                        <div>
+                            <button className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-full font-bold' onClick={weatherCity}><BsSearch /></button>
                         </div>
                     </form>
                 </div>
             </div>
             <div className='flex justify-center'>
-                <div className='bg-white shadow-md rounded px-8 pt-6 pb-5 m-auto'>
+                <div className='bg-white shadow-md rounded-md px-8 pt-6 pb-5 m-auto'>
                     {loading}
                 </div>
             </div>
