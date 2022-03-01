@@ -1,39 +1,50 @@
-import { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function Current() {
-    const [city, setCity] = useState("")
+
+    const { state } = useLocation()
     let [location, setLocation] = useState([])
     const [current, setCurrent] = useState([])
     const [condition, setCondition] = useState([])
-    const [message, setMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
+    const [loading, setLoading] = useState(false)//Para el tiempo de carga
 
-    let loading = null
+    let message = null
 
-    const key = 'bb8b7a1351ef4ccb95b13932222202'
-    const linkAPI = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=7`
-
-    const weatherCity = (event) => {
-        event.preventDefault()
+    const weatherCity = (city) => {
+        const key = 'bb8b7a1351ef4ccb95b13932222202'
+        const linkAPI = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=7`
+        setLoading(true)
         if (city !== "") {
-            fetch(linkAPI)
-                .then(res => res.json())
-                .then(response => {
-                    console.log(response);
-                    if (response.error) {
-                        setMessage(response.error.message)
-                    } else {
-                        setMessage("")
-                        setLocation(response.location)
-                        setCurrent(response.current)
-                        setCondition(response.current.condition)
-                    }
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
+            setTimeout(() => {
+                fetch(linkAPI)
+                    .then(res => res.json())
+                    .then(response => {
+                        console.log(response);
+                        if (response.error) {
+                            setErrorMessage(response.error.message)
+                        } else {
+                            setErrorMessage("")
+                            setLocation(response.location)
+                            setCurrent(response.current)
+                            setCondition(response.current.condition)
+                        }
+                        setLoading(false)
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                    })
+            }, 2000)
         }
     }
+
+    useEffect(() => {
+        if (state) {
+            const { nameCity } = state
+            weatherCity(nameCity)
+        }
+    }, [state])
 
     const styles = {
         bold: `text-gray-700 text-base font-bold`,
@@ -41,23 +52,25 @@ function Current() {
     }
 
     if (location.length === 0) {
-        if (message === 'No matching location found.') {
-            loading = <div className='bg-red-600 p-5 rounded'>
-                <p className='text-white font-semibold'>{message}</p>
+        if (errorMessage === 'No matching location found.') {
+            message = <div className='bg-red-600 p-5 rounded'>
+                <p className='text-white font-semibold'>{errorMessage}</p>
             </div>
         } else {
-            loading = <div className='bg-blue-500 p-5 rounded'>
-                <p className='text-white font-semibold'>Welcome to Weather Page</p>
+            message = <div className='bg-blue-500 p-5 rounded'>
+                <p className='text-white font-semibold'>Waiting for a city</p>
             </div>
         }
     }
     else {
-        if (message === 'No matching location found.') {
-            loading = <div className='bg-red-600 p-5'>
-                <p className='text-white font-semibold'>{message}</p>
-            </div>
+        if (errorMessage === 'No matching location found.') {
+            message =
+                <div className='bg-red-600 p-5'>
+                    <p className='text-white font-semibold'>{errorMessage}</p>
+                </div>
         } else {
-            loading = <>
+            console.log('size:', location.length);
+            message = <>
                 <p className='text-gray-700 font-bold text-2xl'>Clima en {location.name}</p>
                 <span className='font-semibold text-2xl text-gray-700'>{current.temp_c}°C</span>
                 <div className='flex justify-start items-center'>
@@ -72,26 +85,16 @@ function Current() {
 
 
     return (
-        <div className='py-5 px-5'>
-            <div className='flex justify-center'>
-                <div className='bg-white shadow-md rounded-md px-8 pt-5 pb-8 mb-4 m-auto'>
-                    <form className='flex items-center border-b border-teal-500 py-2'>
-                        <input
-                            placeholder='Buscar ciudad'
-                            type='text'
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            className='appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1  leading-tight focus:outline-none font-semibold'
-                        ></input>
-                        <div>
-                            <button className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-full font-bold' onClick={weatherCity}><BsSearch /></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div className='px-5'>
             <div className='flex justify-center'>
                 <div className='bg-white shadow-md rounded-md px-8 pt-6 pb-5 m-auto'>
-                    {loading}
+                    {
+                        loading
+                            ?
+                            <div className='bg-green-600 p-5 rounded-md'><p className='text-white font-semibold'>Cargando...</p></div>
+                            :
+                            message
+                    }
                 </div>
             </div>
         </div>
