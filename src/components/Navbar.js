@@ -13,7 +13,8 @@ function Navbar() {
                     <div className="sm:block sm:ml-6">
                         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex space-x-4">
-                                <NavLink to="/" className={({ isActive }) => isActive ? styles.linkActive : styles.linkDeactived} >Dia actual</NavLink>
+                                <NavLink to="/" className={({ isActive }) => isActive ? styles.linkActive : styles.linkDeactived} >Inicio</NavLink>
+                                <NavLink to="/current" className={({ isActive }) => isActive ? styles.linkActive : styles.linkDeactived} >Dia actual</NavLink>
                                 <NavLink to="/days" className={({ isActive }) => isActive ? styles.linkActive : styles.linkDeactived}>3 dias</NavLink>
                             </div>
                         </div>
