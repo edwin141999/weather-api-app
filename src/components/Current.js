@@ -53,29 +53,29 @@ function Current() {
 
     if (location.length === 0) {
         if (errorMessage === 'No matching location found.') {
-            message = <div className='bg-red-600 p-5 rounded'>
-                <p className='text-white font-semibold'>{errorMessage}</p>
+            message = <div className='p-5 bg-red-600 rounded'>
+                <p className='font-semibold text-white'>{errorMessage}</p>
             </div>
         } else {
-            message = <div className='bg-blue-500 p-5 rounded'>
-                <p className='text-white font-semibold'>Waiting for a city</p>
+            message = <div className='p-5 bg-blue-500 rounded'>
+                <p className='font-semibold text-white'>Waiting for a city</p>
             </div>
         }
     }
     else {
         if (errorMessage === 'No matching location found.') {
             message =
-                <div className='bg-red-600 p-5'>
-                    <p className='text-white font-semibold'>{errorMessage}</p>
+                <div className='p-5 bg-red-600'>
+                    <p className='font-semibold text-white'>{errorMessage}</p>
                 </div>
         } else {
             console.log('size:', location.length);
             message = <>
-                <p className='text-gray-700 font-bold text-2xl'>Clima en {location.name}</p>
-                <span className='font-semibold text-2xl text-gray-700'>{current.temp_c}°C</span>
-                <div className='flex justify-start items-center'>
+                <p className='text-2xl font-bold text-gray-700'>Clima en {location.name}</p>
+                <span className='text-2xl font-semibold text-gray-700'>{current.temp_c}°C</span>
+                <div className='flex items-center justify-start'>
                     <img src={condition.icon} alt='No hay imagen' className='px-5'></img>
-                    <span className='text-gray-700 font-semibold'>{condition.text}</span>
+                    <span className='font-semibold text-gray-700'>{condition.text}</span>
                 </div>
                 <p className={styles.bold}>Humedad: <span className={styles.semibold}>{current.humidity}%</span></p>
                 <p className={styles.bold}>Viento: <span className={styles.semibold}>{current.wind_kph} km/h</span></p>
@@ -87,11 +87,11 @@ function Current() {
     return (
         <div className='px-5'>
             <div className='flex justify-center'>
-                <div className='bg-white shadow-md rounded-md px-8 pt-6 pb-5 m-auto'>
+                <div className='px-8 pt-6 pb-5 m-auto bg-white rounded-md shadow-md'>
                     {
                         loading
                             ?
-                            <div className='bg-green-600 p-5 rounded-md'><p className='text-white font-semibold'>Cargando...</p></div>
+                            <div className='p-5 bg-green-600 rounded-md'><p className='font-semibold text-white'>Cargando...</p></div>
                             :
                             message
                     }

@@ -8,10 +8,10 @@ function Navbar() {
 
     return (
         <nav className="bg-gray-800">
-            <div className="max-w 7x1 mx-auto px-2 sm:px-6 lg:px-8">
+            <div className="px-2 mx-auto max-w 7x1 sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16 ">
                     <div className="sm:block sm:ml-6">
-                        <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                        <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
                             <div className="flex space-x-4">
                                 <NavLink to="/" className={({ isActive }) => isActive ? styles.linkActive : styles.linkDeactived} >Inicio</NavLink>
                                 <NavLink to="/current" className={({ isActive }) => isActive ? styles.linkActive : styles.linkDeactived} >Dia actual</NavLink>
