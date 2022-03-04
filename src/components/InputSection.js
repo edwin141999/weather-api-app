@@ -6,13 +6,17 @@ function InputSection() {
     const navigate = useNavigate()
     const [city, setCity] = useState("")
 
-    const sendCity = (e) => {
+    const sendActualCity = (e) => {
         e.preventDefault()
-        navigate('/current', { state: { nameCity: city } })
+        if (city !== "") {
+            navigate('/current', { state: { nameCity: city } })
+        }
     }
-    const sendCity2 = (e) => {
+    const sendThreeDays = (e) => {
         e.preventDefault()
-        navigate('/days', { state: { nameCity: city } })
+        if (city !== "") {
+            navigate('/days', { state: { nameCity: city } })
+        }
     }
 
     return (
@@ -27,9 +31,9 @@ function InputSection() {
                             onChange={(e) => setCity(e.target.value)}
                             className='w-full py-1 mr-3 font-semibold leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none'
                         ></input>
-                        <div className="flex">
-                            <button className='flex items-center px-2 py-1 mr-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendCity}><BsSearch className="mr-2" />Actual</button>
-                            <button className='flex items-center px-2 py-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendCity2}><BsSearch className="mr-2" />3 Days</button>
+                        <div className="flex flex-shrink-0">
+                            <button className='flex items-center px-2 py-1 mr-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendActualCity}><BsSearch className="mr-2" />Actual</button>
+                            <button className='flex items-center px-2 py-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendThreeDays}><BsSearch className="mr-2" />3 Days</button>
                         </div>
                     </form>
                 </div>
