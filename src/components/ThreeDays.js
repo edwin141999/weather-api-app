@@ -8,8 +8,6 @@ function ThreeDays() {
     const { state } = useLocation()
     const [loading, setLoading] = useState(false)
     let [location, setLocation] = useState([])
-    const [current, setCurrent] = useState([])
-    const [condition, setCondition] = useState([])
     const [errorMessage, setErrorMessage] = useState("")
     const [days, setDays] = useState([])
     const [bandera, setBandera] = useState(false)
@@ -30,8 +28,6 @@ function ThreeDays() {
                         setBandera(false)
                         setErrorMessage("")
                         setLocation(response.location)
-                        setCurrent(response.current)
-                        setCondition(response.current.condition)
                         setDays(response.forecast.forecastday)
                     }
                     setLoading(false)
@@ -72,6 +68,9 @@ function ThreeDays() {
         } else {
             message =
                 <>
+                    <div className="absolute bg-white m-1 rounded-md shadow-md inset-x-3.5 md:inset-x-1/4 lg:inset-x-1/3 top-48 ">
+                        <p className='text-base sm:text-xs md:text-2xl lg:text-2xl font-bold text-gray-700 text-center m-1'>Clima en {location.name}</p>
+                    </div>
                     {days.map((data) => {
                         return <div className="px-8 pt-6 pb-5 m-5 mb-5 bg-white rounded-md shadow-md" key={data.date}>
                             <p className="text-base sm:text-xs md:text-xl lg:text-xl font-bold text-gray-700">Fecha: <span className={styles.semibold}>{data.date}</span></p>
