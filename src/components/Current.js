@@ -16,7 +16,7 @@ function Current() {
 
     const weatherCity = (city) => {
         const key = 'bb8b7a1351ef4ccb95b13932222202'
-        const linkAPI = `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=7&lang=es`
+        const linkAPI = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=7&lang=es`
         setLoading(true)
         setTimeout(() => {
             fetch(linkAPI)
