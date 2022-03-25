@@ -33,7 +33,7 @@ function InputSection() {
                         ></input>
                         <div className="flex flex-shrink-0">
                             <button className='flex items-center px-2 py-1 mr-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendActualCity}><BsSearch className="mr-2" />Actual</button>
-                            <button className='flex items-center px-2 py-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendThreeDays}><BsSearch className="mr-2" />3 Days</button>
+                            <button className='flex items-center px-2 py-1 text-sm font-bold text-white bg-teal-500 border-4 border-teal-500 rounded-full hover:bg-teal-700 hover:border-teal-700' onClick={sendThreeDays}><BsSearch className="mr-2" />3 Dias</button>
                         </div>
                     </form>
                 </div>

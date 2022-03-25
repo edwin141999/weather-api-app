@@ -72,7 +72,7 @@ function Current() {
                     <span className='font-semibold text-gray-700'>{condition.text}</span>
                 </div>
                 <p className={styles.bold}>Humedad: <span className={styles.semibold}>{current.humidity}%</span></p>
-                <p className={styles.bold}>Velocidad deiento: <span className={styles.semibold}>{current.wind_kph} km/h</span></p>
+                <p className={styles.bold}>Velocidad de viento: <span className={styles.semibold}>{current.wind_kph} km/h</span></p>
             </>
         }
     }
